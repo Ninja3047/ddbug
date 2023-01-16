@@ -11,7 +11,7 @@ fn print_name(symbol: &Symbol, w: &mut dyn ValuePrinter) -> Result<()> {
         SymbolKind::Function => write!(w, "fn ")?,
     }
     match symbol.name() {
-        Some(name) => write!(w, "{}", name)?,
+        Some(name) => write!(w, "{name}")?,
         None => write!(w, "<anon>")?,
     }
     Ok(())

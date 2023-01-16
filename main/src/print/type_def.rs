@@ -29,7 +29,7 @@ fn print_source(ty: &TypeDef, w: &mut dyn ValuePrinter, unit: &Unit) -> Result<(
 
 fn print_byte_size(ty: &TypeDef, w: &mut dyn ValuePrinter, hash: &FileHash) -> Result<()> {
     if let Some(byte_size) = ty.byte_size(hash) {
-        write!(w, "{}", byte_size)?;
+        write!(w, "{byte_size}")?;
     }
     Ok(())
 }

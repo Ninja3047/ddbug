@@ -32,14 +32,14 @@ fn print_name(f: &Function, w: &mut dyn ValuePrinter) -> Result<()> {
 
 fn print_linkage_name(f: &Function, w: &mut dyn ValuePrinter) -> Result<()> {
     if let Some(linkage_name) = f.linkage_name() {
-        write!(w, "{}", linkage_name)?;
+        write!(w, "{linkage_name}")?;
     }
     Ok(())
 }
 
 fn print_symbol_name(f: &Function, w: &mut dyn ValuePrinter) -> Result<()> {
     if let Some(symbol_name) = f.symbol_name() {
-        write!(w, "{}", symbol_name)?;
+        write!(w, "{symbol_name}")?;
     }
     Ok(())
 }
@@ -57,7 +57,7 @@ fn print_range(range: Option<&Range>, w: &mut dyn ValuePrinter) -> Result<()> {
 
 fn print_size(f: &Function, w: &mut dyn ValuePrinter) -> Result<()> {
     if let Some(size) = f.size() {
-        write!(w, "{}", size)?;
+        write!(w, "{size}")?;
     }
     Ok(())
 }
@@ -80,7 +80,7 @@ fn print_return_type(f: &Function, w: &mut dyn ValuePrinter, hash: &FileHash) ->
     let ty = f.return_type(hash);
     if ty.as_ref().map(|t| t.is_void()) != Some(true) {
         match ty.as_ref().and_then(|t| t.byte_size(hash)) {
-            Some(byte_size) => write!(w, "[{}]", byte_size)?,
+            Some(byte_size) => write!(w, "[{byte_size}]")?,
             None => write!(w, "[??]")?,
         }
         write!(w, "\t")?;
@@ -349,7 +349,7 @@ fn print_call(
     if let Some(function) = hash.functions_by_address.get(&call.to) {
         print_ref(function, w)?;
     } else if let Some(plt) = code.and_then(|code| code.plt(call.to)) {
-        write!(w, "{}", plt)?;
+        write!(w, "{plt}")?;
     } else if options.ignore_function_address {
         // We haven't displayed an address yet, so we need to display something.
         write!(w, "0x{:x}", call.to)?;
@@ -454,7 +454,7 @@ pub(crate) fn print_instructions(
         let mut cfi_next = cfis.next();
         loop {
             match (&insn_next, cfi_next) {
-                (&Some(ref insn), Some(cfi)) => {
+                (Some(insn), Some(cfi)) => {
                     if cfi.0.is_none() || cfi.0 <= insn.address() {
                         print_cfi(state, cfi, range)?;
                         cfi_next = cfis.next();
@@ -463,15 +463,15 @@ pub(crate) fn print_instructions(
                         insn_next = insns.next();
                     }
                 }
-                (&Some(ref insn), None) => {
+                (Some(insn), None) => {
                     insn.print(state, code, &disassembler, details, range)?;
                     insn_next = insns.next();
                 }
-                (&None, Some(cfi)) => {
+                (None, Some(cfi)) => {
                     print_cfi(state, cfi, range)?;
                     cfi_next = cfis.next();
                 }
-                (&None, None) => break,
+                (None, None) => break,
             }
         }
     }
@@ -524,7 +524,7 @@ fn print_cfi(state: &mut PrintState, cfi: &Cfi, range: Range) -> Result<()> {
                 write!(w, ".cfi_def_cfa_register")?;
                 write_reg!(w, " ", r)?;
             }
-            CfiDirective::DefCfaOffset(o) => write!(w, ".cfi_def_cfa_offset 0x{:x}", o)?,
+            CfiDirective::DefCfaOffset(o) => write!(w, ".cfi_def_cfa_offset 0x{o:x}")?,
             CfiDirective::Offset(r, o) => {
                 write!(w, ".cfi_offset")?;
                 write_reg!(w, " ", r)?;
@@ -603,7 +603,7 @@ fn print_frame_variable(
     write!(w, "{}", variable.offset)?;
     match variable.size {
         Some(size) => {
-            write!(w, "[{}]", size)?;
+            write!(w, "[{size}]")?;
         }
         None => {
             debug!("no size for {:?}", variable);

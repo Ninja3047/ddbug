@@ -75,7 +75,7 @@ impl<'w> Printer for TextPrinter<'w> {
     fn line(&mut self, label: &str, buf: &[u8]) -> Result<()> {
         self.write_indent()?;
         if !label.is_empty() {
-            write!(self.w, "{}:", label)?;
+            write!(self.w, "{label}:")?;
             if !buf.is_empty() {
                 write!(self.w, " ")?;
             }
@@ -161,7 +161,7 @@ impl<'w> Printer for TextPrinter<'w> {
     fn instruction(&mut self, address: Option<u64>, mnemonic: &str, buf: &[u8]) -> Result<()> {
         self.write_indent()?;
         if let Some(address) = address {
-            write!(self.w, "{:3x}:  ", address)?;
+            write!(self.w, "{address:3x}:  ")?;
         } else {
             write!(self.w, "{:3}   ", "")?;
         }
@@ -171,7 +171,7 @@ impl<'w> Printer for TextPrinter<'w> {
             // TODO: fix this in callers instead?
             write!(self.w, "{:6} ", "")?;
         } else {
-            write!(self.w, "{:6}", mnemonic)?;
+            write!(self.w, "{mnemonic:6}")?;
         }
         if !buf.is_empty() {
             write!(self.w, " ")?;

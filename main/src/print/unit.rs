@@ -81,13 +81,13 @@ pub(crate) fn print_ref(unit: &Unit, w: &mut dyn ValuePrinter) -> Result<()> {
     if !name.starts_with('/') {
         let dir = unit.dir().unwrap_or("");
         if !dir.is_empty() {
-            write!(w, "{}", dir)?;
+            write!(w, "{dir}")?;
             if !dir.ends_with('/') {
                 write!(w, "/")?;
             }
         }
     }
-    write!(w, "{}", name)?;
+    write!(w, "{name}")?;
     Ok(())
 }
 
@@ -324,7 +324,7 @@ fn print_address(unit: &Unit, w: &mut dyn ValuePrinter, range: Option<Range>) ->
     if let Some(ref range) = range {
         print::range::print_address(range, w)?;
     } else if let Some(low_pc) = unit.address() {
-        write!(w, "0x{:x}", low_pc)?;
+        write!(w, "0x{low_pc:x}")?;
     }
     Ok(())
 }

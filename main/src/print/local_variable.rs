@@ -18,7 +18,7 @@ pub(crate) fn print_decl(
 fn print_size_and_decl(v: &LocalVariable, w: &mut dyn ValuePrinter, hash: &FileHash) -> Result<()> {
     // TODO: print address?
     match v.byte_size(hash) {
-        Some(byte_size) => write!(w, "[{}]", byte_size)?,
+        Some(byte_size) => write!(w, "[{byte_size}]")?,
         None => write!(w, "[??]")?,
     }
     write!(w, "\t")?;
@@ -27,7 +27,7 @@ fn print_size_and_decl(v: &LocalVariable, w: &mut dyn ValuePrinter, hash: &FileH
 
 fn print_address(v: &LocalVariable, w: &mut dyn ValuePrinter) -> Result<()> {
     if let Some(address) = v.address() {
-        write!(w, "0x{:x}", address)?;
+        write!(w, "0x{address:x}")?;
     }
     Ok(())
 }

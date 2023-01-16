@@ -76,7 +76,7 @@ fn print_declaration(ty: &EnumerationType, w: &mut dyn ValuePrinter) -> Result<(
 
 fn print_byte_size(ty: &EnumerationType, w: &mut dyn ValuePrinter, hash: &FileHash) -> Result<()> {
     if let Some(size) = ty.byte_size(hash) {
-        write!(w, "{}", size)?;
+        write!(w, "{size}")?;
     } else {
         debug!("enum with no size");
     }
@@ -86,7 +86,7 @@ fn print_byte_size(ty: &EnumerationType, w: &mut dyn ValuePrinter, hash: &FileHa
 fn print_enumerator(ty: &Enumerator, w: &mut dyn ValuePrinter) -> Result<()> {
     write!(w, "{}", ty.name().unwrap_or("<anon>"))?;
     if let Some(value) = ty.value() {
-        write!(w, "({})", value)?;
+        write!(w, "({value})")?;
     }
     Ok(())
 }

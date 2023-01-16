@@ -5,7 +5,7 @@ use crate::Result;
 
 pub(crate) fn print(source: &Source, w: &mut dyn ValuePrinter, unit: &Unit) -> Result<()> {
     if let Some(path) = source.path(unit) {
-        write!(w, "{}", path)?;
+        write!(w, "{path}")?;
         if source.line() != 0 {
             write!(w, ":{}", source.line())?;
             if source.column() != 0 {

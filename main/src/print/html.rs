@@ -307,10 +307,10 @@ impl<'w> Printer for HtmlPrinter<'w> {
             if self.prefix == DiffPrefix::Modify {
                 write!(self.w, " class=\"field mod\"")?;
             }
-            write!(self.w, ">{}:</span>", label)?;
+            write!(self.w, ">{label}:</span>")?;
         } else {
             if !label.is_empty() {
-                write!(self.w, "<span class=\"field\">{}:</span> ", label)?;
+                write!(self.w, "<span class=\"field\">{label}:</span> ")?;
             }
             write!(self.w, "<span")?;
             match self.prefix {
@@ -340,7 +340,7 @@ impl<'w> Printer for HtmlPrinter<'w> {
             write!(self.w, "<li>")?;
         }
         if !label.is_empty() {
-            write!(self.w, "<span class=\"field\">{}:</span> ", label)?;
+            write!(self.w, "<span class=\"field\">{label}:</span> ")?;
         }
         write!(self.w, "<span class=\"field\"><span class=\"del\">")?;
         self.w.write_all(a)?;
@@ -419,7 +419,7 @@ impl<'w> Printer for HtmlPrinter<'w> {
     fn indent_detail(&mut self, id: &str, label: &str) -> Result<()> {
         debug_assert!(self.http);
         debug_assert!(!self.line_started);
-        write!(self.w, "<li class=\"detail\" data-detail=\"{}\">", id,)?;
+        write!(self.w, "<li class=\"detail\" data-detail=\"{id}\">",)?;
         self.line_started = true;
         self.line(label, &[])?;
         writeln!(self.w, "</li>")?;
@@ -451,9 +451,9 @@ impl<'w> Printer for HtmlPrinter<'w> {
     fn instruction(&mut self, address: Option<u64>, mnemonic: &str, buf: &[u8]) -> Result<()> {
         write!(self.w, "<tr><td>")?;
         if let Some(address) = address {
-            write!(self.w, "{:x}", address)?;
+            write!(self.w, "{address:x}")?;
         }
-        write!(self.w, "</td><td>{}</td><td>", mnemonic)?;
+        write!(self.w, "</td><td>{mnemonic}</td><td>")?;
         self.w.write_all(buf)?;
         write!(self.w, "</td></tr>")?;
         Ok(())
@@ -494,8 +494,7 @@ impl<'w> ValuePrinter for HtmlValuePrinter<'w> {
         } else {
             write!(
                 self.w,
-                "<a class=\"link\" data-link=\"{}\" href=\"#{}\">",
-                id, id,
+                "<a class=\"link\" data-link=\"{id}\" href=\"#{id}\">",
             )?;
             f(self)?;
             write!(self.w, "</a>")?;

@@ -65,7 +65,7 @@ fn print_source(ty: &StructType, w: &mut dyn ValuePrinter, unit: &Unit) -> Resul
 
 fn print_byte_size(ty: &StructType, w: &mut dyn ValuePrinter, _hash: &FileHash) -> Result<()> {
     if let Some(size) = ty.byte_size() {
-        write!(w, "{}", size)?;
+        write!(w, "{size}")?;
     } else if !ty.is_declaration() {
         debug!("struct with no size");
     }

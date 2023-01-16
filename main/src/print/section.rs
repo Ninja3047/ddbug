@@ -7,10 +7,10 @@ use crate::Result;
 
 fn print_name(section: &Section, w: &mut dyn ValuePrinter) -> Result<()> {
     if let Some(ref segment) = section.segment() {
-        write!(w, "{},", segment)?;
+        write!(w, "{segment},")?;
     }
     match section.name() {
-        Some(name) => write!(w, "{}", name)?,
+        Some(name) => write!(w, "{name}")?,
         None => write!(w, "<anon-section>")?,
     }
     Ok(())

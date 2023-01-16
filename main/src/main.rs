@@ -264,7 +264,7 @@ fn main() {
             _ => cmd
                 .error(
                     clap::error::ErrorKind::InvalidValue,
-                    format!("invalid {} value: {}", OPT_OUTPUT, value),
+                    format!("invalid {OPT_OUTPUT} value: {value}"),
                 )
                 .exit(),
         }
@@ -276,7 +276,7 @@ fn main() {
             Err(_) => {
                 cmd.error(
                     clap::error::ErrorKind::InvalidValue,
-                    format!("invalid {} value: {}", OPT_INLINE_DEPTH, inline_depth),
+                    format!("invalid {OPT_INLINE_DEPTH} value: {inline_depth}"),
                 )
                 .exit();
             }
@@ -294,7 +294,7 @@ fn main() {
                 _ => cmd
                     .error(
                         clap::error::ErrorKind::InvalidValue,
-                        format!("invalid {} value: {}", OPT_CATEGORY, value),
+                        format!("invalid {OPT_CATEGORY} value: {value}"),
                     )
                     .exit(),
             }
@@ -339,7 +339,7 @@ fn main() {
                 _ => cmd
                     .error(
                         clap::error::ErrorKind::InvalidValue,
-                        format!("invalid {} value: {}", OPT_PRINT, value),
+                        format!("invalid {OPT_PRINT} value: {value}"),
                     )
                     .exit(),
             }
@@ -359,7 +359,7 @@ fn main() {
                             _ => cmd
                                 .error(
                                     clap::error::ErrorKind::InvalidValue,
-                                    format!("invalid {} {} value: {}", OPT_FILTER, key, value),
+                                    format!("invalid {OPT_FILTER} {key} value: {value}"),
                                 )
                                 .exit(),
                         };
@@ -372,14 +372,14 @@ fn main() {
                     _ => cmd
                         .error(
                             clap::error::ErrorKind::InvalidValue,
-                            format!("invalid {} key: {}", OPT_FILTER, key),
+                            format!("invalid {OPT_FILTER} key: {key}"),
                         )
                         .exit(),
                 }
             } else {
                 cmd.error(
                     clap::error::ErrorKind::InvalidValue,
-                    format!("missing {} value for key: {}", OPT_FILTER, value),
+                    format!("missing {OPT_FILTER} value for key: {value}"),
                 )
                 .exit();
             }
@@ -393,7 +393,7 @@ fn main() {
             value => cmd
                 .error(
                     clap::error::ErrorKind::InvalidValue,
-                    format!("invalid {} key: {}", OPT_SORT, value),
+                    format!("invalid {OPT_SORT} key: {value}"),
                 )
                 .exit(),
         };
@@ -425,7 +425,7 @@ fn main() {
                 _ => cmd
                     .error(
                         clap::error::ErrorKind::InvalidValue,
-                        format!("invalid {} value: {}", OPT_IGNORE, value),
+                        format!("invalid {OPT_IGNORE} value: {value}"),
                     )
                     .exit(),
             }
@@ -441,7 +441,7 @@ fn main() {
             } else {
                 cmd.error(
                     clap::error::ErrorKind::InvalidValue,
-                    format!("invalid {} value: {}", OPT_PREFIX_MAP, value),
+                    format!("invalid {OPT_PREFIX_MAP} value: {value}"),
                 )
                 .exit();
             }
@@ -635,7 +635,7 @@ fn serve_print_file(writer: &mut Vec<u8>, mut path: str::Split<char>, state: &Se
                         if let Some(parent_id) =
                             ddbug::print_parent(id, state.file.file(), &state.index)
                         {
-                            write!(writer, "{}", parent_id).unwrap();
+                            write!(writer, "{parent_id}").unwrap();
                         }
                     }
                     Some(detail) => {
@@ -730,11 +730,11 @@ fn serve<T: Send + Sync + 'static>(
         incoming.set_nodelay(true);
         let local_addr = incoming.local_addr();
         let server = Server::builder(incoming).serve(make_service);
-        println!("Listening on http://{}", local_addr);
+        println!("Listening on http://{local_addr}");
         // TODO: support other OS
         #[cfg(target_os = "linux")]
         std::process::Command::new("xdg-open")
-            .arg(format!("http://{}", local_addr))
+            .arg(format!("http://{local_addr}"))
             .status()
             .unwrap();
         server.await.unwrap();

@@ -271,19 +271,19 @@ impl<'input> Type<'input> {
     ) -> cmp::Ordering {
         use self::TypeKind::*;
         match (&type_a.kind, &type_b.kind) {
-            (&Base(ref a), &Base(ref b)) => BaseType::cmp_id(a, b),
-            (&Def(ref a), &Def(ref b)) => TypeDef::cmp_id(a, b),
-            (&Struct(ref a), &Struct(ref b)) => StructType::cmp_id(a, b),
-            (&Union(ref a), &Union(ref b)) => UnionType::cmp_id(a, b),
-            (&Enumeration(ref a), &Enumeration(ref b)) => EnumerationType::cmp_id(a, b),
-            (&Array(ref a), &Array(ref b)) => ArrayType::cmp_id(hash_a, a, hash_b, b),
-            (&Function(ref a), &Function(ref b)) => FunctionType::cmp_id(hash_a, a, hash_b, b),
-            (&Unspecified(ref a), &Unspecified(ref b)) => UnspecifiedType::cmp_id(a, b),
-            (&PointerToMember(ref a), &PointerToMember(ref b)) => {
+            (Base(a), Base(b)) => BaseType::cmp_id(a, b),
+            (Def(a), Def(b)) => TypeDef::cmp_id(a, b),
+            (Struct(a), Struct(b)) => StructType::cmp_id(a, b),
+            (Union(a), Union(b)) => UnionType::cmp_id(a, b),
+            (Enumeration(a), Enumeration(b)) => EnumerationType::cmp_id(a, b),
+            (Array(a), Array(b)) => ArrayType::cmp_id(hash_a, a, hash_b, b),
+            (Function(a), Function(b)) => FunctionType::cmp_id(hash_a, a, hash_b, b),
+            (Unspecified(a), Unspecified(b)) => UnspecifiedType::cmp_id(a, b),
+            (PointerToMember(a), PointerToMember(b)) => {
                 PointerToMemberType::cmp_id(hash_a, a, hash_b, b)
             }
-            (&Modifier(ref a), &Modifier(ref b)) => TypeModifier::cmp_id(hash_a, a, hash_b, b),
-            (&Subrange(ref a), &Subrange(ref b)) => SubrangeType::cmp_id(hash_a, a, hash_b, b),
+            (Modifier(a), Modifier(b)) => TypeModifier::cmp_id(hash_a, a, hash_b, b),
+            (Subrange(a), Subrange(b)) => SubrangeType::cmp_id(hash_a, a, hash_b, b),
             _ => {
                 let discr_a = type_a.kind.discriminant_value();
                 let discr_b = type_b.kind.discriminant_value();

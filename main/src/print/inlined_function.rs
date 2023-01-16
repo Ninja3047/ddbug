@@ -11,7 +11,7 @@ fn print_size_and_decl(
     hash: &FileHash,
 ) -> Result<()> {
     match f.size() {
-        Some(size) => write!(w, "[{}]", size)?,
+        Some(size) => write!(w, "[{size}]")?,
         None => write!(w, "[??]")?,
     }
     write!(w, "\t")?;

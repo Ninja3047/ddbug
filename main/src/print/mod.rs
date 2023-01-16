@@ -338,7 +338,7 @@ impl<'a> PrintState<'a> {
 
     pub fn field_u64(&mut self, label: &str, arg: u64) -> Result<()> {
         self.field(label, |w, _| {
-            write!(w, "{}", arg)?;
+            write!(w, "{arg}")?;
             Ok(())
         })
     }
@@ -733,7 +733,7 @@ impl<'a> DiffState<'a> {
     pub fn field_u64(&mut self, label: &str, arg_a: u64, arg_b: u64) -> Result<()> {
         let base = arg_a;
         self.field(label, arg_a, arg_b, |w, _hash, arg| {
-            write!(w, "{}", arg)?;
+            write!(w, "{arg}")?;
             if arg != base {
                 write!(w, " ({:+})", arg as i64 - base as i64)?;
             }

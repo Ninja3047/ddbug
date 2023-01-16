@@ -846,7 +846,7 @@ pub fn bloat(
                         function.id(),
                         |state| {
                             state.line(|w, _hash| {
-                                write!(w, "{} ", size)?;
+                                write!(w, "{size} ")?;
                                 print::unit::print_ref(unit, w)?;
                                 Ok(())
                             })

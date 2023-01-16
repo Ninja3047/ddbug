@@ -39,7 +39,7 @@ fn print_variant_part(
 
 fn print_variant(variant: &Variant, w: &mut dyn ValuePrinter) -> Result<()> {
     if let Some(name) = variant.name() {
-        write!(w, "{}: ", name)?;
+        write!(w, "{name}: ")?;
     }
     // TODO: use discriminant type to display value
     write!(w, "<{}>", variant.discriminant_value().unwrap_or(0))?;
@@ -286,8 +286,8 @@ fn format_bit(val: u64) -> String {
     let byte = val / 8;
     let bit = val % 8;
     if bit == 0 {
-        format!("{}", byte)
+        format!("{byte}")
     } else {
-        format!("{}.{}", byte, bit)
+        format!("{byte}.{bit}")
     }
 }

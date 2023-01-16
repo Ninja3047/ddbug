@@ -47,7 +47,7 @@ impl<'input> PrintHeader for BaseType<'input> {
 
 fn print_byte_size(ty: &BaseType, w: &mut dyn ValuePrinter, _hash: &FileHash) -> Result<()> {
     if let Some(size) = ty.byte_size() {
-        write!(w, "{}", size)?;
+        write!(w, "{size}")?;
     } else {
         debug!("base type with no size");
     }
@@ -65,7 +65,7 @@ fn print_encoding(ty: &BaseType, w: &mut dyn ValuePrinter, _hash: &FileHash) -> 
         BaseTypeEncoding::UnsignedChar => "unsigned char",
         BaseTypeEncoding::Float => "floating-point",
     };
-    write!(w, "{}", name)?;
+    write!(w, "{name}")?;
     Ok(())
 }
 
@@ -75,6 +75,6 @@ fn print_endianity(ty: &BaseType, w: &mut dyn ValuePrinter, _hash: &FileHash) ->
         Endianity::Big => "big",
         Endianity::Little => "little",
     };
-    write!(w, "{}", name)?;
+    write!(w, "{name}")?;
     Ok(())
 }

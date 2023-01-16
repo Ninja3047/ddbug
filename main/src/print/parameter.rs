@@ -7,7 +7,7 @@ use crate::Result;
 
 pub(crate) fn print_decl(p: &Parameter, w: &mut dyn ValuePrinter, hash: &FileHash) -> Result<()> {
     if let Some(name) = p.name() {
-        write!(w, "{}: ", name)?;
+        write!(w, "{name}: ")?;
     }
     print::types::print_ref(p.ty(hash), w, hash)?;
     Ok(())
@@ -15,7 +15,7 @@ pub(crate) fn print_decl(p: &Parameter, w: &mut dyn ValuePrinter, hash: &FileHas
 
 fn print_size_and_decl(p: &Parameter, w: &mut dyn ValuePrinter, hash: &FileHash) -> Result<()> {
     match p.byte_size(hash) {
-        Some(byte_size) => write!(w, "[{}]", byte_size)?,
+        Some(byte_size) => write!(w, "[{byte_size}]")?,
         None => write!(w, "[??]")?,
     }
     write!(w, "\t")?;
